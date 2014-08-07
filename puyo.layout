@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_layout_file>
+	<ActiveTarget name="Debug" />
+	<File name="IRenderable.h" open="1" top="0" tabpos="1">
+		<Cursor position="0" topLine="0" />
+	</File>
+	<File name="IState.h" open="1" top="0" tabpos="2">
+		<Cursor position="0" topLine="0" />
+	</File>
+	<File name="Main.cpp" open="1" top="0" tabpos="6">
+		<Cursor position="372" topLine="0" />
+	</File>
+	<File name="Rect.h" open="1" top="0" tabpos="9">
+		<Cursor position="947" topLine="31" />
+	</File>
+	<File name="Renderer.cpp" open="1" top="0" tabpos="5">
+		<Cursor position="408" topLine="142" />
+	</File>
+	<File name="Renderer.h" open="1" top="1" tabpos="3">
+		<Cursor position="474" topLine="11" />
+	</File>
+	<File name="SDLWrapper.cpp" open="1" top="0" tabpos="7">
+		<Cursor position="2899" topLine="126" />
+	</File>
+	<File name="SDLWrapper.h" open="1" top="0" tabpos="8">
+		<Cursor position="94" topLine="0" />
+	</File>
+	<File name="Vector2D.h" open="1" top="0" tabpos="4">
+		<Cursor position="823" topLine="47" />
+	</File>
+</CodeBlocks_layout_file>

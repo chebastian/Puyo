@@ -1,0 +1,240 @@
+# depslib dependency file v1.0
+1335883328 source:/home/sebastian/projects/puyo/puyo/main.cpp
+	<cstdlib>
+	<stdlib.h>
+	<SDL/SDL.h>
+	<SDL.h>
+
+1327664837 /usr/include/SDL/SDL.h
+	"SDL_main.h"
+	"SDL_stdinc.h"
+	"SDL_audio.h"
+	"SDL_cdrom.h"
+	"SDL_cpuinfo.h"
+	"SDL_endian.h"
+	"SDL_error.h"
+	"SDL_events.h"
+	"SDL_loadso.h"
+	"SDL_mutex.h"
+	"SDL_rwops.h"
+	"SDL_thread.h"
+	"SDL_timer.h"
+	"SDL_video.h"
+	"SDL_version.h"
+	"begin_code.h"
+	"close_code.h"
+
+1327664837 /usr/include/SDL/SDL_main.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+	"begin_code.h"
+	"close_code.h"
+
+1327664837 /usr/include/SDL/SDL_stdinc.h
+	"SDL_config.h"
+	<sys/types.h>
+	<stdio.h>
+	<stdlib.h>
+	<stddef.h>
+	<stdarg.h>
+	<stdlib.h>
+	<malloc.h>
+	<stddef.h>
+	<stdarg.h>
+	<memory.h>
+	<string.h>
+	<strings.h>
+	<inttypes.h>
+	<stdint.h>
+	<ctype.h>
+	<iconv.h>
+	"begin_code.h"
+	<alloca.h>
+	<malloc.h>
+	<malloc.h>
+	<malloc.h>
+	<stdlib.h>
+	"close_code.h"
+
+1327664837 /usr/include/SDL/SDL_config.h
+	"SDL_platform.h"
+	<stdarg.h>
+
+1327664837 /usr/include/SDL/SDL_platform.h
+
+1327664837 /usr/include/SDL/begin_code.h
+
+1327664837 /usr/include/SDL/close_code.h
+
+1327664837 /usr/include/SDL/SDL_audio.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_endian.h"
+	"SDL_mutex.h"
+	"SDL_thread.h"
+	"SDL_rwops.h"
+	"begin_code.h"
+	"close_code.h"
+
+1327664837 /usr/include/SDL/SDL_error.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+
+1327664837 /usr/include/SDL/SDL_endian.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+
+1327664837 /usr/include/SDL/SDL_mutex.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1327664837 /usr/include/SDL/SDL_thread.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_mutex.h"
+	"begin_code.h"
+	<process.h>
+	"close_code.h"
+
+1327664837 /usr/include/SDL/SDL_rwops.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1327664837 /usr/include/SDL/SDL_cdrom.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1327664837 /usr/include/SDL/SDL_cpuinfo.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+
+1327664837 /usr/include/SDL/SDL_events.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_active.h"
+	"SDL_keyboard.h"
+	"SDL_mouse.h"
+	"SDL_joystick.h"
+	"SDL_quit.h"
+	"begin_code.h"
+	"close_code.h"
+
+1327664837 /usr/include/SDL/SDL_active.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1327664837 /usr/include/SDL/SDL_keyboard.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_keysym.h"
+	"begin_code.h"
+	"close_code.h"
+
+1327664837 /usr/include/SDL/SDL_keysym.h
+
+1327664837 /usr/include/SDL/SDL_mouse.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_video.h"
+	"begin_code.h"
+	"close_code.h"
+
+1327664837 /usr/include/SDL/SDL_video.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_rwops.h"
+	"begin_code.h"
+	"close_code.h"
+
+1327664837 /usr/include/SDL/SDL_joystick.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1327664837 /usr/include/SDL/SDL_quit.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+
+1327664837 /usr/include/SDL/SDL_loadso.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1327664837 /usr/include/SDL/SDL_timer.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1327664837 /usr/include/SDL/SDL_version.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+
+1335884026 source:/home/sebastian/projects/puyo/puyo/Main.cpp
+	"SDL.h"
+	"SDLWrapper.h"
+	<iostream>
+	<time.h>
+	"Vector2D.h"
+
+1335884077 /home/sebastian/projects/puyo/puyo/SDLWrapper.h
+	"SDL.h"
+	<vector>
+	"Renderer.h"
+	"IState.h"
+
+1335884421 /home/sebastian/projects/puyo/puyo/Renderer.h
+	"IRenderable.h"
+	"Vector2D.h"
+	"SDL.h"
+	<vector>
+	"Rect.h"
+	<string>
+	<vector>
+
+1264747186 /home/sebastian/projects/puyo/puyo/IRenderable.h
+	"SDL.h"
+
+1335883934 /home/sebastian/projects/puyo/puyo/Vector2D.h
+
+1335883955 /home/sebastian/projects/puyo/puyo/Rect.h
+
+1264148988 /home/sebastian/projects/puyo/puyo/IState.h
+
+1335884613 source:/home/sebastian/projects/puyo/puyo/Renderer.cpp
+	"Renderer.h"
+	<algorithm>
+
+1335884744 source:/home/sebastian/projects/puyo/puyo/SDLWrapper.cpp
+	"SDLWrapper.h"
+	<iostream>
+	"InputManager.h"
+	<stdlib.h>
+
+1313462180 /home/sebastian/projects/puyo/puyo/InputManager.h
+	"IMouseListener.h"
+	"IkeyboardListener.h"
+	<vector>
+	"SDLWrapper.h"
+
+1312847824 /home/sebastian/projects/puyo/puyo/IMouseListener.h
+	<string>
+
+1313320054 /home/sebastian/projects/puyo/puyo/IkeyboardListener.h
+	"SDL.h"
+
