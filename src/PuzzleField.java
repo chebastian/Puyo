@@ -191,11 +191,10 @@ public class PuzzleField extends RenderableEntity implements KeyListener{
 			for(int i = 0; i < found.size(); i++)
 			{
 				PuzzleBlock bl = found.get(i);
-				bl.Kill();
-				block.Kill();
-				mLastClusterSize = found.size();
+				bl.ChangeState(new FadingState(bl));
+				mLastClusterSize = found.size() + 1;
 			}
-			//block.ChangeState(new FadingState(block));
+			block.ChangeState(new FadingState(block));
 		}
 		block.Checked = false;
 	}
@@ -226,7 +225,7 @@ public class PuzzleField extends RenderableEntity implements KeyListener{
 	{
 		for(int i = 0; i < ActiveBlock.size(); i++)
 		{
-			if(ActiveBlock.get(i).IsInState(FallingState.FallingStateID))
+			if(ActiveBlock.get(i).IsInState(FallingState.FallingStateID) )
 				return;
 		}
 		
@@ -245,6 +244,20 @@ public class PuzzleField extends RenderableEntity implements KeyListener{
 		ActiveBlock.add(block);
 		ActiveBlock.add(block2);
 	}
+	
+	public boolean hasBlockInState(int stateId)
+	{
+		for(int i = 0; i < BlockMap.size(); i++)
+		{
+			for(int j = 0; j < BlockMap.get(i).size(); j++)
+			{
+				GetBlock(i, j).IsInState(stateId);
+				return true;
+			}
+		}
+		return false;
+	}
+
 	
 	public boolean RemoveBlock(PuzzleBlock block)
 	{

@@ -24,6 +24,7 @@ public class FadingState extends BlockState{
 			onExit();
 		}
 			
+		Block.Scale = 1.0f - (mElapsedTime/mFadeTime);
 	}
 	
 	public void render(Graphics2D g)

@@ -18,6 +18,7 @@ public class GameState extends State implements MouseListener,MouseMotionListene
 	
 	Font mScoreFont;
 	Point mScorePosition; 
+	ScoreTracker mScoreTracker;
 
 	public GameState(Game game)
 	{
@@ -29,6 +30,7 @@ public class GameState extends State implements MouseListener,MouseMotionListene
 		
 		mScoreFont = new Font("Consolas", 0, 48);
 		mScorePosition = new Point(300, 80);
+		mScoreTracker = new ScoreTracker();
 	}
 	
 	public void Update(float time)
@@ -80,6 +82,11 @@ public class GameState extends State implements MouseListener,MouseMotionListene
 		
 		g.setFont(mScoreFont);
 		g.drawString("LastSz: " + Field.getLastClusterSize(), mScorePosition.x, mScorePosition.y);
+	}
+	
+	public ScoreTracker getScoreTracker()
+	{
+		return mScoreTracker;
 	}
 
 	@Override
