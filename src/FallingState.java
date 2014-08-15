@@ -35,7 +35,6 @@ public class FallingState extends BlockState{
 			{
 				int yindex = Block.getY()%32;
 				Block.SetPosition(Block.getX(),Block.getY()+yindex);
-				//Block.StateIsChanged(true);
 				Block.ChangeState(new IdleState(Block));
 			}
 		}

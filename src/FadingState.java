@@ -7,13 +7,20 @@ public class FadingState extends BlockState{
 	static int FadingStateID = 4; 
 	float mFadeTime; 
 	float mElapsedTime;
+	Game mGame;
 	
-	public FadingState(PuzzleBlock block)
+	public FadingState(PuzzleBlock block,Game game)
 	{
 		super(block);
+		mGame = game;
 		mFadeTime = 0.5f;
 		mElapsedTime = 0.0f;
 		StateID = FadingStateID;
+		mGame.addBlockToFadeCounter(Block);
+	}
+	
+	public void onEnter()
+	{
 	}
 	
 	public void update(float time)
@@ -34,6 +41,7 @@ public class FadingState extends BlockState{
 	
 	public void onExit()
 	{
+		mGame.removeBlockToFadeCounter(Block); 
 		this.Block.Kill();
 	}
 

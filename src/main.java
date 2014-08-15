@@ -33,6 +33,8 @@ class Game implements KeyListener, MouseMotionListener, MouseListener
 	public int MouseX, MouseY;
 	public boolean MouseLeft, MouseRight;
 	
+	public int mNumFadingBlocks;
+	
 	public Game(Dimension size, MapEdit frame)
 	{
 		App = frame;
@@ -72,6 +74,7 @@ class Game implements KeyListener, MouseMotionListener, MouseListener
 		MouseX = 0; MouseY = 0;
 		MouseLeft = false;
 		MouseRight = false;
+		mNumFadingBlocks = 0;
 		
 	}
 	
@@ -121,6 +124,19 @@ class Game implements KeyListener, MouseMotionListener, MouseListener
 	public void HandleInput()
 	{
 		
+	}
+	
+	public void addBlockToFadeCounter(PuzzleBlock block){
+		mNumFadingBlocks += 1;
+	}
+
+	public void removeBlockToFadeCounter(PuzzleBlock block){
+		mNumFadingBlocks -= 1;
+	}
+	
+	public int numBlocksFading()
+	{
+		return mNumFadingBlocks;
 	}
 
 	@Override

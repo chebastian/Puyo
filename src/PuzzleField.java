@@ -32,6 +32,7 @@ public class PuzzleField extends RenderableEntity implements KeyListener{
 	BlockField mField;
 	int mCurrentRot;
 	int mLastClusterSize;
+	Game mGame;
 	
 	public PuzzleField(int w, int h)
 	{
@@ -50,11 +51,14 @@ public class PuzzleField extends RenderableEntity implements KeyListener{
 		{
 			BlockMap.add(new ArrayList<PuzzleBlock>());
 		}
-		
-		AddNewBlock();
 		mCurrentRot = 0;
 		
 		mField = new BlockField(w, h);
+	}
+	
+	public void initGame(Game game)
+	{
+		mGame = game;
 	}
 	
 	public void update(float time)
@@ -191,10 +195,15 @@ public class PuzzleField extends RenderableEntity implements KeyListener{
 			for(int i = 0; i < found.size(); i++)
 			{
 				PuzzleBlock bl = found.get(i);
-				bl.ChangeState(new FadingState(bl));
+				if(bl.IsInState(FadingState.FadingStateID))
+				{
+					System.out.print("This is why\n");
+					continue;
+				}
+				bl.ChangeState(new FadingState(bl,mGame));
 				mLastClusterSize = found.size() + 1;
 			}
-			block.ChangeState(new FadingState(block));
+			block.ChangeState(new FadingState(block,mGame));
 		}
 		block.Checked = false;
 	}

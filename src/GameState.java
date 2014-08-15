@@ -19,13 +19,17 @@ public class GameState extends State implements MouseListener,MouseMotionListene
 	Font mScoreFont;
 	Point mScorePosition; 
 	ScoreTracker mScoreTracker;
+	Game mGame;
 
 	public GameState(Game game)
 	{
 		super(game);
-		Field = new PuzzleField(7, 13);
-		block = new PuzzleBlock(new Point2D.Double(100,100));
+		mGame = game;
 		game.App.addKeyListener(Field);
+		Field = new PuzzleField(7, 13);
+		Field.initGame(game);
+		Field.AddNewBlock();
+		block = new PuzzleBlock(new Point2D.Double(100,100));
 		mLastKeyDown = 0.0f;
 		
 		mScoreFont = new Font("Consolas", 0, 48);
@@ -82,6 +86,8 @@ public class GameState extends State implements MouseListener,MouseMotionListene
 		
 		g.setFont(mScoreFont);
 		g.drawString("LastSz: " + Field.getLastClusterSize(), mScorePosition.x, mScorePosition.y);
+		
+		g.drawString("fading blocks: " + mGame.numBlocksFading(), 300, 50);
 	}
 	
 	public ScoreTracker getScoreTracker()
