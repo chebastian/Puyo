@@ -68,6 +68,7 @@ public class PuzzleField extends RenderableEntity implements KeyListener{
 		{
 			PuzzleBlock b = ActiveBlock.get(i);
 			b.update(time);
+			handleBlockReachedBottom(b);
 		}
 		
 		for(int i = 0; i < BlockMap.size(); i++)
@@ -208,10 +209,19 @@ public class PuzzleField extends RenderableEntity implements KeyListener{
 		block.Checked = false;
 	}
 	
+	
+	public void handleBlockReachedBottom(PuzzleBlock block)
+	{
+		if(BlockReachedBottom(block))
+		{
+			block.ChangeState(new IdleState(block));
+		}
+	}
+
 	public void HandleBlockSpawn(float time)
 	{
-		mElapsedTime += time;
-		boolean bottomHit = false;
+//		mElapsedTime += time;
+		/*boolean bottomHit = false;
 		for(int i = 0; i < ActiveBlock.size(); i++)
 		{
 			PuzzleBlock b = ActiveBlock.get(i);
@@ -220,14 +230,28 @@ public class PuzzleField extends RenderableEntity implements KeyListener{
 				b.ChangeState(new IdleState(b));
 				bottomHit = true;
 			}
-		}
+		}*/
 		
-		if(bottomHit)
+		if(activeBlockReachedBottom())
 		{
 			AddNewBlock();
 			mElapsedTime = 0.0f;
+		} 
+	}
+	
+	public boolean activeBlockReachedBottom()
+	{ 
+		int counter = 0;
+		for(int i = 0; i < ActiveBlock.size(); i++)
+		{
+			PuzzleBlock b = ActiveBlock.get(i);
+			if(BlockReachedBottom(b))
+			{
+				counter += 1;
+			}
 		}
-		
+
+		return counter == ActiveBlock.size();
 	}
 	
 	public void AddNewBlock()
@@ -318,43 +342,18 @@ public class PuzzleField extends RenderableEntity implements KeyListener{
 	public void AddBlockToBottom(PuzzleBlock block)
 	{
 		int col = CollumnPosition(block);
-		int row = RowPosition(block);
-		
-		int sz = BlockMap.get(col).size();
-		
-		int index = sz > 0 ? sz-1 : 0;
-		
-		if(sz > 0)
-		{
-			PositionBlockAtCollumnTop(block, col);
-		}
-		else
-			block.SetPosition(block.getX(), FIELD_HEIGHT * PuzzleBlock.BLOCK_H);
+        PositionBlockAtCollumnTop(block, col);
 		
 		AddBlockInMap(block);
-		
-		HandleBlockClustering(block);
 	}
 	
 	public boolean BlockReachedBottom(PuzzleBlock block)
 	{
 		int col = CollumnPosition(block);
-		int row = RowPosition(block);
 		
-		int sz = BlockMap.get(col).size();
-		int index = sz > 0 ? sz-1 : 0;
+		int cH = GetCollumnHeightInPixels(col);
 		
-		if(sz > 0)
-		{
-			PuzzleBlock top = BlockMap.get(col).get(index);
-			if(block.bottom() >= top.top() && !top.IsInState(FallingState.FallingStateID))
-				return true;
-		}
-		
-		if(block.bottom() > FIELD_HEIGHT * PuzzleBlock.BLOCK_H)
-			return true;
-		
-		return false;
+		return block.top() >= cH; 
 	}
 	
 	public void PositionBlockAtCollumnTop(PuzzleBlock block, int col)
@@ -545,7 +544,8 @@ public class PuzzleField extends RenderableEntity implements KeyListener{
 	
 	public int GetCollumnHeightInPixels(int col)
 	{
-		int height =  (int)FieldHeightInPixels() - (BlockMap.get(col).size() * PuzzleBlock.BLOCK_H);
+		int ch = BlockMap.get(col).size();
+		int height =  (int)FieldHeightInPixels() - (ch * PuzzleBlock.BLOCK_H);
 		
 		return height;
 	}
@@ -584,7 +584,7 @@ public class PuzzleField extends RenderableEntity implements KeyListener{
 	
 	public float FieldHeightInPixels()
 	{
-		return FIELD_HEIGHT * PuzzleBlock.BLOCK_H;
+		return (FIELD_HEIGHT) * PuzzleBlock.BLOCK_H;
 	}
 
 	@Override
