@@ -34,6 +34,8 @@ public class PuzzleField extends RenderableEntity implements KeyListener{
 	int mLastClusterSize;
 	Game mGame;
 	
+	boolean mNeedToUpdate;
+	
 	public PuzzleField(int w, int h)
 	{
 		super(0,new Rectangle());
@@ -54,6 +56,7 @@ public class PuzzleField extends RenderableEntity implements KeyListener{
 		mCurrentRot = 0;
 		
 		mField = new BlockField(w, h);
+		mNeedToUpdate = false;
 	}
 	
 	public void initGame(Game game)
@@ -64,6 +67,8 @@ public class PuzzleField extends RenderableEntity implements KeyListener{
 	public void update(float time)
 	{
 		HandleBlockSpawn(time);
+		boolean mLastTimeNeed = mNeedToUpdate;
+		
 		for(int i = 0; i < ActiveBlock.size(); i++)
 		{
 			PuzzleBlock b = ActiveBlock.get(i);
@@ -71,24 +76,55 @@ public class PuzzleField extends RenderableEntity implements KeyListener{
 			handleBlockReachedBottom(b);
 		}
 		
+		if(activeBlockReachedBottom())
+		{
+			DropActiveBlock();
+		}
+
+		
+
+		updateBlocksInField(time);
+		
+		boolean blocksHasGoneIdle = mLastTimeNeed && !hasBlockInState(DroppState.DroppStateID);
+		if(activeBlockReachedBottom() || blocksHasGoneIdle)
+		{
+			lookForBlockClusters(); 
+			System.out.print("\nCHECKING\n");
+		}
+
+		handleBlockRemoval();
+		mNeedToUpdate = hasBlockInState(DroppState.DroppStateID);
+	}
+	
+	public void updateBlocksInField(float time)
+	{
+		for(int i = 0; i < BlockMap.size(); i++)
+		{
+			for(int j = 0; j < BlockMap.get(i).size(); j++)
+			{
+				GetBlock(i, j).update(time);
+			}
+		}
+	}
+	
+	public void lookForBlockClusters()
+	{ 
 		for(int i = 0; i < BlockMap.size(); i++)
 		{
 			for(int j = 0; j < BlockMap.get(i).size(); j++)
 			{
 				PuzzleBlock block = BlockMap.get(i).get(j);
-				
-				block.update(time);
-				
-				if(BlockMap.get(i).get(j).StateChanged() == true)
+
+				//block.update(time);
+
+				//if(BlockMap.get(i).get(j).StateChanged())
 				{
 					HandleBlockClustering(block);
 					block.StateIsChanged(false);
 				}
-				
+
 			}
 		}
-		
-		handleBlockRemoval();
 	}
 	
 	public void handleBlockRemoval()
@@ -118,7 +154,7 @@ public class PuzzleField extends RenderableEntity implements KeyListener{
 	{ 
 		for(int j = 0; j < BlockMap.get(col).size(); j++)
 		{
-			if(BlockMap.get(col).get(j).Alive == false)
+			if(BlockMap.get(col).get(j).Alive == false)		
 				BlockMap.get(col).remove(j);
 		}
 	}
@@ -128,12 +164,13 @@ public class PuzzleField extends RenderableEntity implements KeyListener{
 		for(int i = 0; i < BlockMap.get(c).size(); i++)
 		{
 			PuzzleBlock b = BlockMap.get(c).get(i);
-			if(!b.Alive || b.IsInState(FallingState.FallingStateID))
+			if(!b.Alive || b.IsInState(DroppState.DroppStateID))
 				continue;
 			
 			if(NumEmptySpacesBelowBlock(b) > 0)
 			{ 
-				b.ChangeState(new FallingState(b,NumEmptySpacesBelowBlock(b)));
+				//b.ChangeState(new FallingState(b,NumEmptySpacesBelowBlock(b)));
+				b.ChangeState(new DroppState(b,NumEmptySpacesBelowBlock(b)));
 			}
 		}
 	}
@@ -196,11 +233,11 @@ public class PuzzleField extends RenderableEntity implements KeyListener{
 			for(int i = 0; i < found.size(); i++)
 			{
 				PuzzleBlock bl = found.get(i);
-				if(bl.IsInState(FadingState.FadingStateID))
+				/*if(bl.IsInState(FadingState.FadingStateID))
 				{
 					System.out.print("This is why\n");
 					continue;
-				}
+				}*/
 				bl.ChangeState(new FadingState(bl,mGame));
 				mLastClusterSize = found.size() + 1;
 			}
@@ -215,23 +252,12 @@ public class PuzzleField extends RenderableEntity implements KeyListener{
 		if(BlockReachedBottom(block))
 		{
 			block.ChangeState(new IdleState(block));
+			//HandleBlockClustering(block);
 		}
 	}
 
 	public void HandleBlockSpawn(float time)
-	{
-//		mElapsedTime += time;
-		/*boolean bottomHit = false;
-		for(int i = 0; i < ActiveBlock.size(); i++)
-		{
-			PuzzleBlock b = ActiveBlock.get(i);
-			if(BlockReachedBottom(b))
-			{
-				b.ChangeState(new IdleState(b));
-				bottomHit = true;
-			}
-		}*/
-		
+	{ 
 		if(activeBlockReachedBottom())
 		{
 			AddNewBlock();
@@ -262,12 +288,6 @@ public class PuzzleField extends RenderableEntity implements KeyListener{
 				return;
 		}
 		
-		for(int i = 0; i < ActiveBlock.size(); i++)
-		{
-			PuzzleBlock b = ActiveBlock.get(i);
-			AddBlockToBottom(b);
-		}
-		
 		Point2D.Float start = new Point2D.Float(0,0);
 		PuzzleBlock block = new PuzzleBlock(start);
 		
@@ -284,8 +304,8 @@ public class PuzzleField extends RenderableEntity implements KeyListener{
 		{
 			for(int j = 0; j < BlockMap.get(i).size(); j++)
 			{
-				GetBlock(i, j).IsInState(stateId);
-				return true;
+				if(GetBlock(i, j).IsInState(stateId))
+                        return true;
 			}
 		}
 		return false;
@@ -350,7 +370,6 @@ public class PuzzleField extends RenderableEntity implements KeyListener{
 	public boolean BlockReachedBottom(PuzzleBlock block)
 	{
 		int col = CollumnPosition(block);
-		
 		int cH = GetCollumnHeightInPixels(col);
 		
 		return block.top() >= cH; 
@@ -358,6 +377,7 @@ public class PuzzleField extends RenderableEntity implements KeyListener{
 	
 	public void PositionBlockAtCollumnTop(PuzzleBlock block, int col)
 	{
+
 		int colH = GetCollumnHeightInPixels(col);
 		block.SetPosition(block.getX(), colH);
 	}
@@ -459,9 +479,7 @@ public class PuzzleField extends RenderableEntity implements KeyListener{
 			PuzzleBlock b = ActiveBlock.get(i);
 			b.ChangeState(new IdleState(b));
 			AddBlockToBottom(b);
-		}
-		
-		AddNewActiveBlock();
+		} 
 	}
 	
 	public void RotateActiveBlock()

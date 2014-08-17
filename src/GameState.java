@@ -60,7 +60,11 @@ public class GameState extends State implements MouseListener,MouseMotionListene
 			Field.MoveActiveBlock(-32, 0);
 		
 		else if(mGame.IsKeyPressed('s'))
+		{
 			Field.DropActiveBlock();
+			Field.AddNewActiveBlock();
+			Field.lookForBlockClusters();
+		}
 		else if(mGame.IsKeyPressed('1'))
 			Field.SetActiveBlockType(1);
 		else if(mGame.IsKeyPressed('2'))
