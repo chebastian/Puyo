@@ -27,6 +27,7 @@ public class PuzzleBlock extends RenderableEntity{
 	
 	public Color colors[] = {Color.GREEN,Color.blue,Color.RED,Color.PINK, Color.white};
 	static Random rand = new Random();
+	boolean mNeedsToFade;
 	
 	public PuzzleBlock(Point2D index, int w, int h)
 	{
@@ -44,6 +45,7 @@ public class PuzzleBlock extends RenderableEntity{
 		Empty = true;
 		Scale = 1.0f;
 		StateChanged = false;
+		mNeedsToFade = false;
 	}
 	
 	public PuzzleBlock(Point2D pos)
@@ -62,6 +64,7 @@ public class PuzzleBlock extends RenderableEntity{
 		UniqueId = UniqueIdCounter++;
 		Empty = false;
 		Scale = 1.0f;
+		mNeedsToFade = false;
 	}
 	
 	public PuzzleBlock(PuzzleBlock b)
@@ -85,6 +88,8 @@ public class PuzzleBlock extends RenderableEntity{
 		UniqueId = UniqueIdCounter++;
 		Empty = false;
 		Scale = 1.0f;
+		
+		mNeedsToFade = false;
 	}
 	
 	public void SnapToPosition(int x, int y)
@@ -179,6 +184,16 @@ public class PuzzleBlock extends RenderableEntity{
 	public int top()
 	{
 		return rect.y;
+
+	}
+	
+	public void setToFade(){
+		mNeedsToFade = true;
+	}
+	
+	public boolean needsToFade()
+	{
+		return mNeedsToFade;
 	}
 
 	
