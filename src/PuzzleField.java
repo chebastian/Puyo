@@ -96,12 +96,15 @@ public class PuzzleField extends RenderableEntity implements KeyListener{
 		handleBlockRemoval();
 		mNeedToUpdate = hasBlockInState(DroppState.DroppStateID);
 		if(ActiveBlock.size() <= 0 && !mNeedToUpdate && !hasFadingBlocks())
-			AddNewActiveBlock();
+		{
+			AddNewActiveBlock(); 
+		}
 	}
 	
 	public void updateBlocksInField(float time)
 	{
 		boolean updateFade = !hasBlockInState(DroppState.DroppStateID);
+		boolean hasACombo = false;
 		for(int i = 0; i < BlockMap.size(); i++)
 		{
 			for(int j = 0; j < BlockMap.get(i).size(); j++)
@@ -109,9 +112,15 @@ public class PuzzleField extends RenderableEntity implements KeyListener{
 				PuzzleBlock bl = GetBlock(i, j);
 				bl.update(time); 
 				if(updateFade && bl.needsToFade() && !bl.IsInState(FadingState.FadingStateID))
+				{ 
 					bl.ChangeState(new FadingState(bl, mGame)); 
+					hasACombo = true;
+				}
 			}
 		}
+		
+		if(hasACombo)
+			mGame.addBlockToFadeCounter(null);
 	}
 	
 	public boolean hasFadingBlocks()
@@ -476,6 +485,7 @@ public class PuzzleField extends RenderableEntity implements KeyListener{
 		return true;
 	}
 	
+
 	public void AddNewActiveBlock()
 	{
 		Point2D.Float start = new Point2D.Float(0, 0);
@@ -487,6 +497,7 @@ public class PuzzleField extends RenderableEntity implements KeyListener{
 		ActiveBlock.clear();
 		ActiveBlock.add(block);
 		ActiveBlock.add(block2);
+		mGame.clearComboCounter();
 		
 	}
 	public void DropActiveBlock()

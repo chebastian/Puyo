@@ -90,8 +90,7 @@ public class GameState extends State implements MouseListener,MouseMotionListene
 		
 		g.setFont(mScoreFont);
 		g.drawString("LastSz: " + Field.getLastClusterSize(), mScorePosition.x, mScorePosition.y);
-		
-		g.drawString("fading blocks: " + mGame.numBlocksFading(), 300, 50);
+		g.drawString("Combo Counter: " + mGame.numBlocksFading(), 300, 50);
 	}
 	
 	public ScoreTracker getScoreTracker()

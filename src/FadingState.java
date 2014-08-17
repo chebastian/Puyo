@@ -20,7 +20,6 @@ public class FadingState extends BlockState{
 	
 	public void onEnter()
 	{
-        mGame.addBlockToFadeCounter(Block);
 	}
 	
 	public void update(float time)
@@ -41,7 +40,6 @@ public class FadingState extends BlockState{
 	
 	public void onExit()
 	{
-		mGame.removeBlockToFadeCounter(Block); 
 		this.Block.Kill();
 	}
 

@@ -134,6 +134,11 @@ class Game implements KeyListener, MouseMotionListener, MouseListener
 		mNumFadingBlocks -= 1;
 	}
 	
+	public void clearComboCounter()
+	{
+		mNumFadingBlocks = 0;
+	}
+	
 	public int numBlocksFading()
 	{
 		return mNumFadingBlocks;
