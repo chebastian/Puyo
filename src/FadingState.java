@@ -16,11 +16,11 @@ public class FadingState extends BlockState{
 		mFadeTime = 0.5f;
 		mElapsedTime = 0.0f;
 		StateID = FadingStateID;
-		mGame.addBlockToFadeCounter(Block);
 	}
 	
 	public void onEnter()
 	{
+        mGame.addBlockToFadeCounter(Block);
 	}
 	
 	public void update(float time)

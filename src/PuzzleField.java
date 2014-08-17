@@ -66,7 +66,7 @@ public class PuzzleField extends RenderableEntity implements KeyListener{
 	
 	public void update(float time)
 	{
-		HandleBlockSpawn(time);
+		//HandleBlockSpawn(time);
 		boolean mLastTimeNeed = mNeedToUpdate;
 		
 		for(int i = 0; i < ActiveBlock.size(); i++)
@@ -78,6 +78,7 @@ public class PuzzleField extends RenderableEntity implements KeyListener{
 		
 		if(activeBlockReachedBottom())
 		{
+			//DropActiveBlock();
 			DropActiveBlock();
 		}
 
@@ -94,6 +95,8 @@ public class PuzzleField extends RenderableEntity implements KeyListener{
 
 		handleBlockRemoval();
 		mNeedToUpdate = hasBlockInState(DroppState.DroppStateID);
+		if(ActiveBlock.size() <= 0 && !mNeedToUpdate && !hasFadingBlocks())
+			AddNewActiveBlock();
 	}
 	
 	public void updateBlocksInField(float time)
@@ -106,10 +109,22 @@ public class PuzzleField extends RenderableEntity implements KeyListener{
 				PuzzleBlock bl = GetBlock(i, j);
 				bl.update(time); 
 				if(updateFade && bl.needsToFade() && !bl.IsInState(FadingState.FadingStateID))
-					bl.ChangeState(new FadingState(bl, mGame));
-					
+					bl.ChangeState(new FadingState(bl, mGame)); 
 			}
 		}
+	}
+	
+	public boolean hasFadingBlocks()
+	{
+		for(int i = 0; i < BlockMap.size(); i++)
+		{
+			for(int j = 0; j < BlockMap.get(i).size(); j++)
+			{
+				if(GetBlock(i, j).needsToFade())
+					return true;
+			}
+		}
+		return false;
 	}
 	
 	public void lookForBlockClusters()
@@ -482,6 +497,7 @@ public class PuzzleField extends RenderableEntity implements KeyListener{
 			b.ChangeState(new IdleState(b));
 			AddBlockToBottom(b);
 		} 
+		ActiveBlock.clear();
 	}
 	
 	public void RotateActiveBlock()
